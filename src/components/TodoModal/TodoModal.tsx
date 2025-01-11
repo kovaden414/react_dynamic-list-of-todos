@@ -16,7 +16,7 @@ export const TodoModal: React.FC<Props> = ({ selectedTodo, onClose }) => {
     setLoading(true);
     setTimeout(() => {
       fetch(`
-        https://mate-academy.github.io/react_dynamic-list-of-todos/api/users/${selectedTodo.userId}.json`)
+        https://mate-academy.github.io/react_dynamic-list-of-todos/api/users/${selectedTodo.userId ? selectedTodo.userId : '1'}.json`)
         .then(response => response.json())
         .then(userFromServer => setUser(userFromServer))
         .finally(() => setLoading(false));

@@ -13,7 +13,7 @@ export const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [loading, setLoading] = useState(false);
   const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
-  const [selecteValue, setSelecteValue] = useState('all');
+  const [selectedValue, setSelectedValue] = useState('all');
   const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export const App: React.FC = () => {
       https://mate-academy.github.io/react_dynamic-list-of-todos/api/todos.json`)
       .then(response => response.json())
       .then((todosFromServer: Todo[]) => {
-        switch (selecteValue) {
+        switch (selectedValue) {
           case 'all':
             setTodos(
               todosFromServer.filter(todo =>
@@ -58,7 +58,7 @@ export const App: React.FC = () => {
             return;
         }
       });
-  }, [selecteValue, inputValue]);
+  }, [selectedValue, inputValue]);
 
   return (
     <>
@@ -69,8 +69,8 @@ export const App: React.FC = () => {
 
             <div className="block">
               <TodoFilter
-                selecteValue={selecteValue}
-                setSelecteValue={setSelecteValue}
+                selectedValue={selectedValue}
+                setSelectedValue={setSelectedValue}
                 inputValue={inputValue}
                 setInputValue={setInputValue}
               />

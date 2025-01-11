@@ -1,13 +1,13 @@
 type Props = {
-  selecteValue: string;
-  setSelecteValue: (selecteValue: string) => void;
+  selectedValue: string;
+  setSelectedValue: (selectedValue: string) => void;
   inputValue: string;
-  setInputValue: (selecteValue: string) => void;
+  setInputValue: (inputValue: string) => void;
 };
 
 export const TodoFilter: React.FC<Props> = ({
-  selecteValue,
-  setSelecteValue,
+  selectedValue,
+  setSelectedValue,
   inputValue,
   setInputValue,
 }) => (
@@ -16,8 +16,8 @@ export const TodoFilter: React.FC<Props> = ({
       <span className="select">
         <select
           data-cy="statusSelect"
-          value={selecteValue}
-          onChange={event => setSelecteValue(event.target.value)}
+          value={selectedValue}
+          onChange={event => setSelectedValue(event.target.value)}
         >
           <option value="all">All</option>
           <option value="active">Active</option>

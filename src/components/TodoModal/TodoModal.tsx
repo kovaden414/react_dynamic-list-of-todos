@@ -14,18 +14,34 @@ export const TodoModal: React.FC<Props> = ({ selectedTodo, onClose }) => {
 
   useEffect(() => {
     setLoading(true);
-    setTimeout(() => {
-      fetch(`
-        https://mate-academy.github.io/react_dynamic-list-of-todos/api/users/${selectedTodo.userId ? selectedTodo.userId : '1'}.json`)
-        .then(response => response.json())
-        .then(userFromServer => setUser(userFromServer))
-        .catch(error => {
-          // eslint-disable-next-line no-console
-          console.error('Failed to fetch user:', error);
-          setUser(null);
-        })
-        .finally(() => setLoading(false));
+
+    const fetchUser = async () => {
+      try {
+        const response = await fetch(
+          `https://mate-academy.github.io/react_dynamic-list-of-todos/api/users/${selectedTodo.userId ? selectedTodo.userId : '1'}.json`,
+        );
+
+        if (!response.ok) {
+          throw new Error(`Error: ${response.statusText}`);
+        }
+
+        const userFromServer = await response.json();
+
+        setUser(userFromServer);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error('Failed to fetch user:', error);
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const timer = setTimeout(() => {
+      fetchUser();
     }, 500);
+
+    return () => clearTimeout(timer);
   }, [selectedTodo]);
 
   return (
